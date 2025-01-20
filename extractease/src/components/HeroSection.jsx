@@ -86,6 +86,7 @@ const HeroSection = () => {
               delay: 2.5,
             }}
             whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.3 }}
             className='py-[17px] px-[15px] bg-[#FB6666] rounded-md poppins-semibold text-[14px] text-white'
             onClick={() => window.open('/upload-page')}
           >
@@ -126,7 +127,7 @@ const HeroSection = () => {
 
         {/* Small Images */}
         <motion.div
-          className="absolute"
+          className="absolute hover:drop-shadow-[0px_0px_18.2px_#d9d9d9] transition-[filter] duration-300 ease-in-out"
           custom={{ x: -120, y: -120, delay: 0, rotate: 465 }}
           variants={smallIconVariants}
           initial="initial"
@@ -135,7 +136,7 @@ const HeroSection = () => {
           <Image src={HighlighterIcon} alt="Highlighter Icon" width={50} height={50} />
         </motion.div>
         <motion.div
-          className="absolute"
+          className="absolute hover:drop-shadow-[0px_0px_18.2px_#d9d9d9] transition-[filter] duration-300 ease-in-out"
           custom={{ x: 120, y: -120, delay: 0.3, rotate: 700 }}
           variants={smallIconVariants}
           initial="initial"
@@ -144,7 +145,7 @@ const HeroSection = () => {
           <Image src={DocumentIcon} alt="Document Icon" width={50} height={50} />
         </motion.div>
         <motion.div
-          className="absolute"
+          className="absolute hover:drop-shadow-[0px_0px_18.2px_#d9d9d9] transition-[filter] duration-300 ease-in-out"
           custom={{ x: 120, y: 120, delay: 0.6, rotate: 706 }}
           variants={smallIconVariants}
           initial="initial"
@@ -153,7 +154,7 @@ const HeroSection = () => {
           <Image src={TextIcon} alt="Text Icon" width={50} height={50} />
         </motion.div>
         <motion.div
-          className="absolute"
+          className="absolute hover:drop-shadow-[0px_0px_18.2px_#d9d9d9] transition-[filter] duration-300 ease-in-out"
           custom={{ x: -120, y: 120, delay: 0.9, rotate: 389 }}
           variants={smallIconVariants}
           initial="initial"

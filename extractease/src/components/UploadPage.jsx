@@ -7,48 +7,14 @@
   import UploadIcon from '@/../public/upload-icon.svg';
   import { motion } from 'framer-motion';
   import { useRouter } from 'next/navigation';
-  import * as pdfjsLib from 'pdfjs-dist/webpack';
-
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
   const UploadPage = () => {
     const [file, setFile] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [uploading, setUploading] = useState(false);
     const [showError, setShowError] = useState(false);
-    const [extractedText, setExtractedText] = useState('');
     const router = useRouter();
 
-    const extractTextFromPdf = async (pdfFile) => {
-      const fileReader = new FileReader();
-      return new Promise((resolve, reject) => {
-        fileReader.onload = async () => {
-          try {
-            const pdfBytes = new Uint8Array(fileReader.result);
-            const pdfDoc = await pdfjsLib.getDocument(pdfBytes).promise;  // Load PDF using pdf.js
-            let text = '';
-            const numPages = pdfDoc.numPages;
-            
-            // Loop through pages and extract text
-            for (let pageNum = 1; pageNum <= numPages; pageNum++) {
-              const page = await pdfDoc.getPage(pageNum);
-              const content = await page.getTextContent();
-              content.items.forEach((item) => {
-                text += item.str + ' ';
-              });
-            }
-            resolve(text);
-          } catch (error) {
-            reject(error);
-          }
-        };
-        fileReader.onerror = () => reject(new Error('File reading error.'));
-        fileReader.readAsArrayBuffer(pdfFile);
-      });
-    };
-    
-
-    // Handle file change
     const handleFileChange = (event) => {
       const uploadedFile = event.target.files[0];
       if (uploadedFile && uploadedFile.type === 'application/pdf') {
@@ -60,7 +26,6 @@
       }
     };
 
-    // Start the upload process
     const startUpload = () => {
       setUploading(true);
       let progress = 0;
@@ -76,24 +41,8 @@
       }, 100);
     };
 
-    
-
-    // Handle proceed after text extraction
     const handleProceed = async () => {
-      try {
-        const extracted = await extractTextFromPdf(file);
-        setExtractedText(extracted);
-        // Redirect to the text display page with the extracted text
-        console.log("Navigating to:", { pathname: '/text-extract', query: { text: extracted } });
-        if (router) {
-          console.log("Navigating to:", { pathname: '/text-extract', query: { text: extracted } });
-          router.push(`/text-extract?text=${encodeURIComponent(extracted)}`);
-        } else {
-          console.error("Router is not initialized yet");
-        }
-      } catch (error) {
-        console.error('Error extracting text from pdf:', error);
-      }
+      // go to python code here
     };
 
     // Remove the uploaded file
