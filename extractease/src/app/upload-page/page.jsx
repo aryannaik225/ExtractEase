@@ -1,15 +1,16 @@
 import Footer from '@/components/Footer';
 import NavBar from '@/components/NavBar';
+import UploadPage from '@/components/UploadPage';
 import React from 'react';
 
 export default function Home() {
   return (
     <div>
       <NavBar />
-
-      
-
-      <Footer />
+      <UploadPage />
+      <div>
+        <Footer />
+      </div>
     </div>
   )
 }
