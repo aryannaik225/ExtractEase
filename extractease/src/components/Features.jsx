@@ -18,10 +18,11 @@ const Features = () => {
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ y: -10 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
           <Image src={TextExtractionIcon} alt='Text Extraction Icon' width={30} height={30}/>
           <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Text Extraction</span>
@@ -32,10 +33,11 @@ const Features = () => {
         <motion.div 
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ y: -10 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
           <Image src={AutomateHighlight} alt='Automate Highlight Icon' width={30} height={30}/>
           <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Automatic Highlight</span>
@@ -46,10 +48,11 @@ const Features = () => {
         <motion.div 
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ y: -10 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
           <Image src={MultipleOutput} alt='Multiple Output Icon' width={24} height={30}/>
           <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Multiple Output Formats</span>
@@ -60,10 +63,11 @@ const Features = () => {
         <motion.div 
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ y: -10 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
           <Image src={SimpleSecure} alt='Simple Secure Icon' width={30} height={30}/>
           <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Simple and Secure</span>
