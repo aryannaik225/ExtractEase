@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 :root {
   --background: #ffffff;
@@ -14,8 +14,74 @@
   }
 }
 
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url('/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-Black";
+  src: url('/fonts/Poppins/Poppins-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-ExtraBold";
+  src: url('/fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url('/fonts/Poppins/Poppins-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url('/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Poppins-SemiBold";
+  src: url('/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.poppins-regular {
+  font-family: "Poppins-Regular", sans-serif;
+}
+
+.poppins-bold {
+  font-family: "Poppins-Bold", sans-serif;
+}
+
+.poppins-black {
+  font-family: "Poppins-Black", sans-serif;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins-ExtraBold", sans-serif;
+}
+
+.poppins-light {
+  font-family: "Poppins-Light", sans-serif;
+}
+
+.poppins-medium {
+  font-family: "Poppins-Medium", sans-serif;
+}
+
+.poppins-semibold {
+  font-family: "Poppins-SemiBold", sans-serif;
+}
+
+.red-glow {
+  filter: drop-shadow(0px 0px 68.2px #FB6666);
 }
