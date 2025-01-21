@@ -86,7 +86,6 @@ const HeroSection = () => {
               delay: 2.5,
             }}
             whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
             className='py-[17px] px-[15px] bg-[#FB6666] rounded-md poppins-semibold text-[14px] text-white'
             onClick={() => window.open('/upload-page')}
           >

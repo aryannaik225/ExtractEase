@@ -24,9 +24,12 @@ def find_important_sentences(text):
 
   # Find the sentence closest to the cluster center
   most_important = sorted(range(len(X.toarray())), key=lambda i: sum((X.toarray()[i] - cluster_centers[0]) ** 2))
-  important_sentences = [sentences[i] for i in most_important[:20]] # Get the top 20 sentences
+  important_sentences = [sentences[i] for i in most_important[:5]] # Get the top 5 sentences
 
   return important_sentences
+
+
+
 
 # Clean the extracted text
 def clean_extracted_text(raw_text):
