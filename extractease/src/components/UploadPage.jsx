@@ -7,6 +7,8 @@
   import UploadIcon from '@/../public/upload-icon.svg';
   import { motion } from 'framer-motion';
   import { useRouter } from 'next/navigation';
+  import { redirect } from 'next/navigation';
+
 
   const UploadPage = () => {
     const [file, setFile] = useState(null);
@@ -43,6 +45,38 @@
 
     const handleProceed = async () => {
       // go to python code here
+      if (!file) return
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('http://127.0.0.1:5000/extract',{
+          method : 'POST',
+          body : formData,
+        })
+
+        if(!response.ok) {
+          throw new Error('Failed to process the file')
+        }
+
+        const data = await response.json()
+        console.log('Extracted Data:', data.text)
+        console.log('Highlighted Parts:', data.highlights)
+
+        const queryString = new URLSearchParams ({
+          text : data.text,
+          highlights : JSON.stringify(data.highlights),
+        }).toString()
+
+        sessionStorage.setItem('text', data.text)
+        sessionStorage.setItem('highlights', JSON.stringify(data.highlights))
+
+        router.push(`/text-extract`)
+
+      } catch (error) {
+        console.error('Error:', error)
+      }
     };
 
     // Remove the uploaded file
