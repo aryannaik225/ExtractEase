@@ -5,30 +5,82 @@ import fitz  # PyMuPDF
 import spacy
 import os
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.cluster import KMeans
+from collections import Counter
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
 nlp = spacy.load('en_core_web_sm')
 
-def find_important_sentences(text):
-  doc = nlp(text)
-  sentences = [sent.text for sent in doc.sents]
+def find_important_sentences(text, num_sentences=None):
+    # Step 1: Process the text and split into sentences
+    doc = nlp(text)
+    sentences = [sent.text.strip() for sent in doc.sents]
 
-  vectorizer = TfidfVectorizer(stop_words='english')
-  X = vectorizer.fit_transform(sentences)
+    # Step 2: Create a TF-IDF vectorizer to score sentences
+    vectorizer = TfidfVectorizer(stop_words="english", max_features=50)  # Focus on important terms
+    sentence_vectors = vectorizer.fit_transform(sentences)
 
-  kmeans = KMeans(n_clusters=1)
-  kmeans.fit(X)
-  cluster_centers = kmeans.cluster_centers_
+    # Step 3: Summarize sentences based on their importance
+    sentence_scores = sentence_vectors.sum(axis=1).flatten()  # Sum up TF-IDF scores for each sentence
+    scored_sentences = [(sentences[i], sentence_scores[i]) for i in range(len(sentences))]
+    sorted_sentences = sorted(scored_sentences, key=lambda x: x[1], reverse=True)
 
-  # Find the sentence closest to the cluster center
-  most_important = sorted(range(len(X.toarray())), key=lambda i: sum((X.toarray()[i] - cluster_centers[0]) ** 2))
-  important_sentences = [sentences[i] for i in most_important[:5]] # Get the top 5 sentences
+    # Step 4: Determine how many sentences to return
+    if not num_sentences:
+        total_tokens = len([token for token in doc if token.is_alpha])
+        num_sentences = max(3, min(len(sentences), total_tokens // 100))  # At least 3 sentences
 
-  return important_sentences
+    # Step 5: Return the top N sentences
+    important_sentences = [sentence for sentence, _ in sorted_sentences[:num_sentences]]
+    return important_sentences
 
 
+def text_rank_summarizer(text, num_sentences=5):
+    # Step 1: Preprocess text and split into sentences
+    doc = nlp(text)
+    sentences = [sent.text.strip() for sent in doc.sents if sent.text.strip()]
+
+    if not sentences:
+        return ["No sentences found in the text."]
+    
+    # Step 2: Create sentence embeddings using SpaCy
+    sentence_vectors = [nlp(sentence).vector for sentence in sentences]
+    if len(sentences) == 1:
+        return sentences  # If there's only one sentence, return it directly
+
+    # Step 3: Calculate cosine similarity matrix
+    similarity_matrix = cosine_similarity(sentence_vectors, sentence_vectors)
+
+    # Step 4: Apply TextRank (Graph-based Scoring)
+    scores = np.zeros(len(sentences))
+    damping_factor = 0.85
+    min_diff = 1e-5  # Convergence threshold
+    max_iter = 100
+
+    for _ in range(max_iter):
+        prev_scores = np.copy(scores)
+        for i in range(len(sentences)):
+            scores[i] = (1 - damping_factor) + damping_factor * sum(
+                similarity_matrix[i][j] * prev_scores[j] / np.sum(similarity_matrix[j]) 
+                for j in range(len(sentences)) if similarity_matrix[i][j] != 0
+            )
+        if np.sum(np.abs(scores - prev_scores)) < min_diff:
+            break
+
+    # Step 5: Rank sentences by their TextRank scores
+    ranked_sentences = sorted(
+        [(sentences[i], scores[i]) for i in range(len(sentences))],
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    # Step 6: Select top N sentences
+    important_sentences = [sentence for sentence, _ in ranked_sentences[:num_sentences]]
+    return important_sentences
 
 
 # Clean the extracted text
@@ -70,7 +122,7 @@ def extract_text_from_pdf():
       cleaned_text = clean_extracted_text(text)
 
       # Use NLP to find important lines
-      important_lines = find_important_sentences(cleaned_text)
+      important_lines = text_rank_summarizer(cleaned_text)
 
       return jsonify({'text': cleaned_text, 'highlights': important_lines})
     finally:
