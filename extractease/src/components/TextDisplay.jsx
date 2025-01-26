@@ -2,17 +2,25 @@
 
 import React, { useEffect, useState } from 'react';
 import { saveAs } from 'file-saver';
+import Image from 'next/image';
 
 const TextDisplayPage = () => {
 
   const [text, setText] = useState('');
   const [highlights, setHighlights] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [format1, setFormat1] = useState('txt');
+  const [showDropdown1, setShowDropdown1] = useState(false);
+  const [format2, setFormat2] = useState('txt');
+  const [fileName, setFileName] = useState('');
 
   useEffect(() => {
     const storedText = sessionStorage.getItem('text');
     const storedHighlights = sessionStorage.getItem('highlights');
+    const fileName = sessionStorage.getItem('fileName');
     setText(storedText);
     setHighlights(JSON.parse(storedHighlights));
+    setFileName(fileName);
   }, [])
 
   const getHighlightedText = (text, highlights) => {
@@ -50,7 +58,9 @@ const TextDisplayPage = () => {
 
   const downloadText = (format) => {
     let fileContent = text;
-    const fileName = format === 'txt' ? 'extracted-text.txt' : 'extracted-text.doc';
+    const sanitizedFileName = fileName.replace(/\.pdf$/, "");
+
+    const downloadFileName = format === "txt" ? `${sanitizedFileName}.txt` : `${sanitizedFileName}.doc`;
 
     if (format === 'doc') {
       // For doc format, wrap the text in a simple HTML structure
@@ -58,7 +68,16 @@ const TextDisplayPage = () => {
     }
 
     const blob = new Blob([fileContent], { type: 'application/octet-stream' });
-    saveAs(blob, fileName); 
+    saveAs(blob, downloadFileName); 
+  }
+
+
+  const handleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  }
+
+  const handleDropdown1 = () => {
+    setShowDropdown1(!showDropdown1);
   }
 
 
@@ -76,28 +95,23 @@ const TextDisplayPage = () => {
               <p className="text-black whitespace-pre-wrap text-sm">{text}</p>
             </div>
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center relative'>
             {/* Dropdown Button */}
-            <div className='relative'>
-              <button className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out'>
-                Download Text
-                <span className='ml-2'>▼</span>
-              </button>
-              <div className='absolute right-0 w-32 mt-2 bg-white border rounded shadow-md'>
-                <button
-                  className='block px-4 py-2 text-gray-800 hover:bg-gray-100'
-                  onClick={() => downloadText('txt')}
-                >
-                  .txt
-                </button>
-                <button
-                  className='block px-4 py-2 text-gray-800 hover:bg-gray-100'
-                  onClick={() => downloadText('doc')}
-                >
-                  .doc
+              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadText(format1)}>
+                <button></button>
+                Download Text ({format1})
+                <button className='flex justify-center items-center h-full aspect-square bg-[#FB6666] rounded-md text-white hover:bg-[#F9A8A8] transition-all ease-out' onClick={(e) => { e.stopPropagation(); handleDropdown(); }}>
+                  <Image src='/drop-down.svg' width={20} height={20} alt='drop-down' className={`${showDropdown ? 'rotate-180' : ''} transition-all duration-200 ease-out`}/>
                 </button>
               </div>
-            </div>
+            {showDropdown && (
+              <div className="absolute top-full mt-2 w-11/12 bg-white shadow-lg rounded-lg z-10">
+                <ul className="p-2 text-black">
+                  <li onClick={() => setFormat1('txt')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
+                  <li onClick={() => setFormat1('doc')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col w-5/12">
@@ -109,12 +123,23 @@ const TextDisplayPage = () => {
               </p>
             </div>
           </div>
-          <div className='flex justify-center'>
-          <button className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out'>
-              <span className='opacity-0'>.doc</span>
-              Download Highlighted Text
-              <span>.doc</span>
-            </button>
+          <div className='flex justify-center relative'>
+            {/* Dropdown Button */}
+              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadText(format2)}>
+                <button></button>
+                Download Highlighted Text ({format2})
+                <button className='flex justify-center items-center h-full aspect-square bg-[#FB6666] rounded-md text-white hover:bg-[#F9A8A8] transition-all ease-out' onClick={(e) => { e.stopPropagation(); handleDropdown1(); }}>
+                  <Image src='/drop-down.svg' width={20} height={20} alt='drop-down' className={`${showDropdown1 ? 'rotate-180' : ''} transition-all duration-200 ease-out`}/>
+                </button>
+              </div>
+            {showDropdown1 && (
+              <div className="absolute top-full mt-2 w-11/12 bg-white shadow-lg rounded-lg z-10">
+                <ul className="p-2 text-black">
+                  <li onClick={() => setFormat2('txt')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
+                  <li onClick={() => setFormat2('doc')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

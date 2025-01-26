@@ -71,6 +71,7 @@
 
         sessionStorage.setItem('text', data.text)
         sessionStorage.setItem('highlights', JSON.stringify(data.highlights))
+        sessionStorage.setItem('fileName', file.name)
 
         router.push(`/text-extract`)
 
