@@ -56,6 +56,41 @@ const TextDisplayPage = () => {
   
   const lines = text.split('\n');
 
+  const downloadHighlightedText = (format) => {
+    const sanitizedFileName = fileName.replace(/\.pdf$/, "");
+    const downloadFileName = format === "txt" ? `${sanitizedFileName}_highlighted.txt` : `${sanitizedFileName}_highlighted.doc`;
+  
+    let fileContent = text;
+    if (format === "doc") {
+      // Generate HTML content with highlights
+      fileContent = `
+        <html>
+          <head>
+            <meta charset="UTF-8">
+          <style>span { background-color: yellow; }</style></head>
+          <body>
+            ${lines
+              .map((line) =>
+                highlights.reduce(
+                  (updatedLine, highlight) =>
+                    updatedLine.replace(
+                      new RegExp(`(${highlight.trim()})`, "gi"),
+                      '<span>$1</span>'
+                    ),
+                  line
+                )
+              )
+              .join("<br>")}
+          </body>
+        </html>
+      `;
+    }
+  
+    const blob = new Blob([fileContent], { type: "application/msword;charset=utf-8" });
+    saveAs(blob, downloadFileName);
+  };
+  
+
   const downloadText = (format) => {
     let fileContent = text;
     const sanitizedFileName = fileName.replace(/\.pdf$/, "");
@@ -64,8 +99,27 @@ const TextDisplayPage = () => {
 
     if (format === 'doc') {
       // For doc format, wrap the text in a simple HTML structure
-      fileContent = `<html><body><pre>${text}</pre></body></html>`;
-    }
+      fileContent = `<html>
+                      <head>
+                        <meta charset="UTF-8">
+                          <style>
+                            body {
+                              font-family: Calibri, sans-serif;
+                              font-size: 12pt;
+                            }
+                            pre {
+                              font-family: Calibri, sans-serif;
+                              font-size: 12pt;
+                            }
+                          </style>
+                      </head>
+                      <body>
+                        <pre>
+                          ${text}
+                        </pre>
+                      </body>
+                    </html>
+                    `}
 
     const blob = new Blob([fileContent], { type: 'application/octet-stream' });
     saveAs(blob, downloadFileName); 
@@ -107,8 +161,8 @@ const TextDisplayPage = () => {
             {showDropdown && (
               <div className="absolute top-full mt-2 w-11/12 bg-white shadow-lg rounded-lg z-10">
                 <ul className="p-2 text-black">
-                  <li onClick={() => setFormat1('txt')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
-                  <li onClick={() => setFormat1('doc')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
+                  <li onClick={() => { setFormat1('txt'); handleDropdown(); }} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
+                  <li onClick={() => { setFormat1('doc'); handleDropdown(); }} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
                 </ul>
               </div>
             )}
@@ -125,7 +179,7 @@ const TextDisplayPage = () => {
           </div>
           <div className='flex justify-center relative'>
             {/* Dropdown Button */}
-              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadText(format2)}>
+              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadHighlightedText(format2)}>
                 <button></button>
                 Download Highlighted Text ({format2})
                 <button className='flex justify-center items-center h-full aspect-square bg-[#FB6666] rounded-md text-white hover:bg-[#F9A8A8] transition-all ease-out' onClick={(e) => { e.stopPropagation(); handleDropdown1(); }}>
@@ -135,8 +189,8 @@ const TextDisplayPage = () => {
             {showDropdown1 && (
               <div className="absolute top-full mt-2 w-11/12 bg-white shadow-lg rounded-lg z-10">
                 <ul className="p-2 text-black">
-                  <li onClick={() => setFormat2('txt')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
-                  <li onClick={() => setFormat2('doc')} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
+                  <li onClick={() => { setFormat2('txt'); handleDropdown1(); }} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">txt format</li>
+                  <li onClick={() => { setFormat2('doc'); handleDropdown1(); }} className="p-2 hover:bg-gray-300 transition-colors duration-300 ease-out rounded-md cursor-pointer">doc format</li>
                 </ul>
               </div>
             )}

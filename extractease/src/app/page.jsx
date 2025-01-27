@@ -47,7 +47,7 @@ export default function Home() {
           }}
           viewport={{ once: true }}
           className="bg-white py-[18px] px-14 rounded text-[#FB6666] poppins-bold mt-7 text-xl"
-          onClick={() => window.open("/upload-page")}
+          onClick={() => window.location.href = "/upload-page"}
         >
           Upload
         </motion.button>
