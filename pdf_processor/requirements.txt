@@ -1,7 +1,6 @@
-Flask==2.3.3
-Flask-Cors==3.0.10
-Werkzeug==2.3.7
-PyMuPDF==1.23.7
-spacy==3.6.0
-numpy==1.24.3
-scikit-learn==1.3.0
+flask
+flask-cors
+PyMuPDF
+spacy
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.6.0/en_core_web_sm-3.6.0-py3-none-any.whl
+scikit-learn
