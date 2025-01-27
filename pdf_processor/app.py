@@ -50,21 +50,60 @@ def text_rank_summarizer(text, percentage=0.5):
     return important_sentences
 
 
-def clean_extracted_text(raw_text):
-  lines = raw_text.split('\n')
-  cleaned_text = ""
+# def clean_extracted_text(raw_text):
+#   lines = raw_text.split('\n')
+#   cleaned_text = ""
 
-  for i in range(len(lines)):
-    line = lines[i].strip()
-    if not line:
-       continue
+#   for i in range(len(lines)):
+#     line = lines[i].strip()
+#     if not line:
+#        continue
     
-    if line.endswith(('.', '!', '?')) or i == len(lines) - 1:
-        cleaned_text += line + '\n\n'
-    else:
-        cleaned_text += line + ' '
+#     if line.endswith(('.', '!', '?')) or i == len(lines) - 1:
+#         cleaned_text += line + '\n\n'
+#     else:
+#         cleaned_text += line + ' '
 
-  return cleaned_text
+#   return cleaned_text
+
+
+def clean_extracted_text(raw_text):
+    lines = raw_text.split('\n')
+    cleaned_text = ""
+    in_code_block = False
+
+    for i in range(len(lines)):
+        line = lines[i].strip()
+
+        # Skip empty lines
+        if not line:
+            continue
+
+        # Check if the line is part of a code block
+        if line.startswith((" ", "\t")) or any(
+            keyword in line for keyword in ["def ", "class ", "import ", "return ", "#", "(", ")", ":", "{", "}"]
+        ):
+            if not in_code_block:
+                in_code_block = True
+                cleaned_text += "\n"  # Start a code block
+
+            cleaned_text += line + "\n"
+        else:
+            if in_code_block:
+                in_code_block = False
+                cleaned_text += "\n"  # End the code block
+
+            # Add normal text with proper sentence breaks
+            if line.endswith(('.', '!', '?')) or i == len(lines) - 1:
+                cleaned_text += line + '\n\n'
+            else:
+                cleaned_text += line + ' '
+
+    # Close any unclosed code blocks
+    if in_code_block:
+        cleaned_text += "\n"
+
+    return cleaned_text
 
 
 

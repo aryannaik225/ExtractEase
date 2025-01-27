@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { saveAs } from 'file-saver';
 import Image from 'next/image';
 
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escapes special characters
+}
+
 const TextDisplayPage = () => {
 
   const [text, setText] = useState('');
@@ -38,7 +42,7 @@ const TextDisplayPage = () => {
       } else if (part) {
         let highlightedPart = part;
         highlights.forEach(highlight => {
-          const regex = new RegExp(`(${highlight.trim()})`, "gi");
+          const regex = new RegExp(`(${escapeRegex(highlight.trim())})`, "gi");
           highlightedPart = highlightedPart.replace(
             regex,
             '<span class="bg-yellow-200">$1</span>'
@@ -74,7 +78,7 @@ const TextDisplayPage = () => {
                 highlights.reduce(
                   (updatedLine, highlight) =>
                     updatedLine.replace(
-                      new RegExp(`(${highlight.trim()})`, "gi"),
+                      new RegExp(`(${escapeRegex(highlight.trim())})`, "gi"),
                       '<span>$1</span>'
                     ),
                   line
