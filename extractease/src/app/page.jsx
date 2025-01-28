@@ -46,7 +46,7 @@ export default function Home() {
             delay: 1,
           }}
           viewport={{ once: true }}
-          className="bg-white py-3 sm:py-[18px] px-10 sm:px-14 rounded text-[#FB6666] poppins-bold mt-5 sm:mt-7 text-sm sm:text-base lg:text-xl"
+          className="bg-white hover:bg-[#FB6666] py-3 sm:py-[18px] px-10 sm:px-14 rounded text-[#FB6666] hover:text-white transition-colors duration-200 ease-out poppins-bold mt-5 sm:mt-7 text-sm sm:text-base lg:text-xl"
           onClick={() => (window.location.href = "/upload-page")}
         >
           Upload

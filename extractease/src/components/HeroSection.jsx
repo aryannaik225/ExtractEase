@@ -64,7 +64,8 @@ const HeroSection = () => {
               damping: 10,
               delay: 2.5,
             }}
-            whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
+            whileHover={{ scale: 1.1 }}
+            transition= {{ duration: 0.2, delay: 0 }}
             className="py-3 px-5 bg-[#FB6666] rounded-md poppins-semibold text-[14px] text-white"
             onClick={() => (window.location.href = '/upload-page')}
           >

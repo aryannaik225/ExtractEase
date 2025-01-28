@@ -22,7 +22,8 @@ const Features = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          whileHover={{ y: -10 }}
+          transition={{ duration: 0.2, delay: 0 }}
         >
           <Image src={TextExtractionIcon} alt='Text Extraction Icon' width={30} height={30} />
           <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Text Extraction</span>
@@ -36,7 +37,8 @@ const Features = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          whileHover={{ y: -10 }}
+          transition={{ duration: 0.2, delay: 0 }}
         >
           <Image src={AutomateHighlight} alt='Automate Highlight Icon' width={30} height={30} />
           <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Automatic Highlight</span>
@@ -50,7 +52,8 @@ const Features = () => {
           transition={{ duration: 0.5, delay: 0.7 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          whileHover={{ y: -10 }}
+          transition={{ duration: 0.2, delay: 0 }}
         >
           <Image src={MultipleOutput} alt='Multiple Output Icon' width={30} height={30} />
           <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Multiple Output Formats</span>
@@ -64,7 +67,8 @@ const Features = () => {
           transition={{ duration: 0.5, delay: 0.8 }}
           viewport={{ once: true }}
           className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+          whileHover={{ y: -10 }}
+          transition={{ duration: 0.2, delay: 0 }}
         >
           <Image src={SimpleSecure} alt='Simple Secure Icon' width={30} height={30} />
           <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Simple and Secure</span>
