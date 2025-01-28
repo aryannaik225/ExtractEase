@@ -8,9 +8,10 @@
 
 <p align='center'>
   <a href="https://extract-ease.vercel.app/">
-    <img src='extractease\public\button-pic.png' width='180px'/>
+    <img src='extractease\public\button-pic.png' width='100px'/>
   </a>
 </p>
+
 ---
 
 ## Overview
