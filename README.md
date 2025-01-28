@@ -5,6 +5,7 @@
 <p align='center'>
   <img src='extractease\public\readme-pic.png' width='800px' />
 </p>
+
 ---
 
 ## Overview
@@ -118,4 +119,4 @@ Contributions are welcome!! To contribute to **ExtractEase**, follow these steps
 ---
 
 ## License
-This project is licensed under the MIT License - see the (License)[LICENSE] file for details.
+This project is licensed under the MIT License - see the [License](./LICENSE) file for details.
