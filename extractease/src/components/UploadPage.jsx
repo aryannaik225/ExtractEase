@@ -89,7 +89,7 @@
       formData.append('file', file);
 
       try {
-        const response = await fetch('http://127.0.0.1:5000/extract',{
+        const response = await fetch('https://extractease-5ybk.onrender.com/extract',{
           method : 'POST',
           body : formData,
         })
