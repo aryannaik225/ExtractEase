@@ -10,71 +10,66 @@ import { motion } from 'framer-motion'
 
 const Features = () => {
   return (
-    <motion.div className='mt-72 w-full flex items-center flex-col'>
-      <span className='text-5xl poppins-bold'>Features</span>
-      <motion.div className='flex mt-14 gap-14'>
-
-
+    <motion.div className='mt-36 w-full flex items-center flex-col px-4'>
+      <span className='text-3xl md:text-5xl poppins-bold text-center'>Features</span>
+      
+      <motion.div 
+        className='flex flex-wrap lg:flex-nowrap justify-center mt-14 gap-8 md:gap-14'
+      >
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
-          className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
           whileHover={{ y: -10, transition: { duration: 0.2 } }}
-          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
-          <Image src={TextExtractionIcon} alt='Text Extraction Icon' width={30} height={30}/>
-          <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Text Extraction</span>
-          <span className='text-base poppins-regular w-[212px] text-white'>Extract Text from any PDF in Seconds</span>
+          <Image src={TextExtractionIcon} alt='Text Extraction Icon' width={30} height={30} />
+          <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Text Extraction</span>
+          <span className='text-sm md:text-base poppins-regular text-white'>Extract Text from any PDF in Seconds</span>
         </motion.div>
 
-
-        <motion.div 
+        {/* Feature Card */}
+        <motion.div
           initial={{ y: 100, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           viewport={{ once: true }}
-          className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
+          className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
           whileHover={{ y: -10, transition: { duration: 0.2 } }}
-          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
         >
-          <Image src={AutomateHighlight} alt='Automate Highlight Icon' width={30} height={30}/>
-          <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Automatic Highlight</span>
-          <span className='text-base poppins-regular w-[212px] text-white'>Automatically highlights key information</span>
-        </motion.div>
-        
-        
-        <motion.div 
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
-          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
-        >
-          <Image src={MultipleOutput} alt='Multiple Output Icon' width={24} height={30}/>
-          <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Multiple Output Formats</span>
-          <span className='text-base poppins-regular w-[212px] text-white'>Download as .txt or .doc files.</span>
-        </motion.div>
-        
-        
-        <motion.div 
-          initial={{ y: 100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className='flex flex-col justify-start bg-[#1F1F1F] py-6 px-7 rounded-md'
-          whileHover={{ y: -10, transition: { duration: 0.2 } }}
-          transition={{ y: {duration: 0.2}, opacity: {duration: 0.5} }}
-        >
-          <Image src={SimpleSecure} alt='Simple Secure Icon' width={30} height={30}/>
-          <span className='text-xl poppins-bold text-white w-[219px] mt-3 mb-2'>Simple and Secure</span>
-          <span className='text-base poppins-regular w-[212px] text-white'>No Sign-in required. Your files stay private</span>
+          <Image src={AutomateHighlight} alt='Automate Highlight Icon' width={30} height={30} />
+          <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Automatic Highlight</span>
+          <span className='text-sm md:text-base poppins-regular text-white'>Automatically highlights key information</span>
         </motion.div>
 
+        {/* Feature Card */}
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          viewport={{ once: true }}
+          className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+        >
+          <Image src={MultipleOutput} alt='Multiple Output Icon' width={30} height={30} />
+          <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Multiple Output Formats</span>
+          <span className='text-sm md:text-base poppins-regular text-white'>Download as .txt or .doc files.</span>
+        </motion.div>
 
+        {/* Feature Card */}
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          viewport={{ once: true }}
+          className='flex flex-col justify-start items-start bg-[#1F1F1F] py-6 px-7 rounded-md w-full max-w-xs'
+          whileHover={{ y: -10, transition: { duration: 0.2 } }}
+        >
+          <Image src={SimpleSecure} alt='Simple Secure Icon' width={30} height={30} />
+          <span className='text-lg md:text-xl poppins-bold text-white mt-3 mb-2'>Simple and Secure</span>
+          <span className='text-sm md:text-base poppins-regular text-white'>No Sign-in required. Your files stay private</span>
+        </motion.div>
       </motion.div>
     </motion.div>
   )

@@ -145,17 +145,17 @@ const TextDisplayPage = () => {
 
   return(
     <div className="flex flex-col items-center mt-10">
-      <div className="flex justify-between w-full max-w-[80vw]">
-        <div className="flex flex-col w-5/12">
+      <div className="flex flex-col md:flex-row items-center gap-24 md:gap-0 md:items-normal justify-normal md:justify-between w-full max-w-[80vw]">
+        <div className="flex flex-col w-11/12 md:w-5/12">
           <h1 className="text-2xl font-semibold mb-4">Extracted PDF Text</h1>
-          <div className="bg-white w-full max-w-[80vw] h-full max-h-[70vh] overflow-y-scroll p-4 border-2 border-[#FB6666] rounded-lg">
-            <div className="bg-white w-full max-w-[80vw] h-full max-h-[70vh] overflow-y-scroll p-4 border-2 border-[#FB6666] rounded-lg">
+          <div className="bg-white w-full max-w-[80vw] h-full max-h-[90vh] p-4 border-2 border-[#FB6666] rounded-lg">
+            <div className="bg-white w-full max-w-[80vw] h-full max-h-[70vh]  overflow-y-scroll p-4 border-2 border-[#FB6666] rounded-lg">
               <p className="text-black whitespace-pre-wrap text-sm">{text}</p>
             </div>
           </div>
           <div className='flex justify-center relative'>
             {/* Dropdown Button */}
-              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadText(format1)}>
+              <div className='flex justify-between w-11/12 poppins-semibold text-[13px] sm:text-sm md:text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadText(format1)}>
                 <button></button>
                 Download Text ({format1})
                 <button className='flex justify-center items-center h-full aspect-square bg-[#FB6666] rounded-md text-white hover:bg-[#F9A8A8] transition-all ease-out' onClick={(e) => { e.stopPropagation(); handleDropdown(); }}>
@@ -172,9 +172,9 @@ const TextDisplayPage = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col w-5/12">
+        <div className="flex flex-col w-11/12 md:w-5/12">
           <h1 className="text-2xl font-semibold mb-4">Highlighted Text</h1>
-          <div className="bg-white w-full max-w-[80vw] h-full max-h-[70vh] overflow-y-scroll p-4 border-2 border-[#FB6666] rounded-lg">
+          <div className="bg-white w-full max-w-[80vw] h-full max-h-[90vh] p-4 border-2 border-[#FB6666] rounded-lg">
             <div className="bg-white w-full max-w-[80vw] h-full max-h-[70vh] overflow-y-scroll p-4 border-2 border-[#FB6666] rounded-lg">
               <p className="text-black whitespace-pre-wrap text-sm">
                 {getHighlightedText(text, highlights)}
@@ -183,7 +183,7 @@ const TextDisplayPage = () => {
           </div>
           <div className='flex justify-center relative'>
             {/* Dropdown Button */}
-              <div className='flex justify-between w-11/12 poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadHighlightedText(format2)}>
+              <div className='flex justify-between w-11/12 poppins-semibold text-[13px] sm:text-sm md:text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out cursor-pointer' onClick={() => downloadHighlightedText(format2)}>
                 <button></button>
                 Download Highlighted Text ({format2})
                 <button className='flex justify-center items-center h-full aspect-square bg-[#FB6666] rounded-md text-white hover:bg-[#F9A8A8] transition-all ease-out' onClick={(e) => { e.stopPropagation(); handleDropdown1(); }}>

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
@@ -12,13 +12,13 @@ export default function Home() {
       <NavBar />
       <HeroSection />
       <Features />
-      <div className="mt-44 w-full flex flex-col items-center">
+      <div className="mt-24 sm:mt-36 w-full flex flex-col items-center px-4 sm:px-8 lg:px-16">
         <motion.span
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
-          className="text-3xl poppins-bold text-[#FB6666]"
+          className="text-2xl sm:text-3xl lg:text-4xl poppins-bold text-[#FB6666] text-center"
         >
           Ready to Extract and Highlight your PDF?
         </motion.span>
@@ -27,9 +27,9 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
-          className="poppins-medium text-white mt-3 text-lg"
+          className="poppins-medium text-white mt-3 text-sm sm:text-base lg:text-lg text-center"
         >
-        Get started with your first file. No sign-up required!
+          Get started with your first file. No sign-up required!
         </motion.span>
         <motion.button
           initial={{
@@ -46,8 +46,8 @@ export default function Home() {
             delay: 1,
           }}
           viewport={{ once: true }}
-          className="bg-white py-[18px] px-14 rounded text-[#FB6666] poppins-bold mt-7 text-xl"
-          onClick={() => window.location.href = "/upload-page"}
+          className="bg-white py-3 sm:py-[18px] px-10 sm:px-14 rounded text-[#FB6666] poppins-bold mt-5 sm:mt-7 text-sm sm:text-base lg:text-xl"
+          onClick={() => (window.location.href = "/upload-page")}
         >
           Upload
         </motion.button>
