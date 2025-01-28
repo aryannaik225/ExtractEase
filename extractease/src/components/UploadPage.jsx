@@ -15,6 +15,7 @@
     const [uploadProgress, setUploadProgress] = useState(0);
     const [uploading, setUploading] = useState(false);
     const [showError, setShowError] = useState(false);
+    const [dragActive, setDragActive] = useState(false);
     const router = useRouter();
 
     const handleFileChange = (event) => {
@@ -27,6 +28,43 @@
         setShowError(true);
       }
     };
+
+
+    const handleDrop = (event) => {
+      event.preventDefault()
+      event.stopPropagation()
+      setDragActive(false)
+      if (event.dataTransfer?.files?.length > 0) {
+        const uploadedFile = event.dataTransfer.files[0]
+        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+          setFile(uploadedFile);
+          setUploadProgress(0);
+          startUpload();
+        } else {
+          setShowError(true);
+        }
+      }
+    }
+
+
+    const handleDragOver = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDragActive(true);
+    };
+
+    const handleDragEnter = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDragActive(true);
+    };
+
+    const handleDragLeave = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDragActive(false);
+    };
+
 
     const startUpload = () => {
       setUploading(true);
@@ -94,7 +132,14 @@
 
     return (
       <div className='flex flex-col items-center w-full mt-20'>
-        <label htmlFor='file-upload' className='relative w-full flex flex-col items-center max-w-[80vw] rounded-lg min-h-80 border-dashed border-[#FB6666] border-2'>
+        <label 
+          htmlFor='file-upload' 
+          className='relative w-full flex flex-col items-center max-w-[80vw] rounded-lg min-h-80 border-dashed border-[#FB6666] border-2'
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}  
+        >
           <Image src={UploadIcon} alt='upload icon' width={30} height={30} className='mt-11'/>
           <input
             type='file'
