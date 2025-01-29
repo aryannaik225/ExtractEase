@@ -16,6 +16,7 @@
     const [uploading, setUploading] = useState(false);
     const [showError, setShowError] = useState(false);
     const [dragActive, setDragActive] = useState(false);
+    const [processing, setProcessing] = useState(false);
     const router = useRouter();
 
     const handleFileChange = (event) => {
@@ -84,6 +85,7 @@
     const handleProceed = async () => {
       // go to python code here
       if (!file) return
+      setProcessing(true)
 
       const formData = new FormData();
       formData.append('file', file);
@@ -115,6 +117,8 @@
 
       } catch (error) {
         console.error('Error:', error)
+      } finally {
+        setProcessing(false)
       }
     };
 
@@ -186,8 +190,20 @@
           </div>
         )}
 
-        <button onClick={handleProceed} className='poppins-semibold text-base p-3 bg-[#FB6666] text-white rounded-lg mt-6 hover:scale-105 transition-all ease-out'>
-          Proceed
+        <button 
+          onClick={handleProceed} 
+          disabled={processing}
+          className={`poppins-semibold text-base p-3 rounded-lg mt-6 transition-all ease-out flex items-center justify-center ${processing ? 'bg-[#FB6666] cursor-not-allowed' : 'bg-[#FB6666] hover:scale-105 text-white'}`}
+        >
+          {processing ? (
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+              className='w-5 h-5 border-4 border-white border-t-transparent rounded-full'
+            />
+          ) : (
+            'Proceed'
+          )}
         </button>
 
         {showError && (
